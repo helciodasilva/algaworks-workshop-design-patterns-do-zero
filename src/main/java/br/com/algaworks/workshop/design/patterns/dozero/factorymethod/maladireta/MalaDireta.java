@@ -5,11 +5,12 @@ import java.util.List;
 import br.com.algaworks.workshop.design.patterns.dozero.factorymethod.contato.Contato;
 import br.com.algaworks.workshop.design.patterns.dozero.factorymethod.contato.Contatos;
 
-public class MalaDireta {
+public abstract class MalaDireta {
 
-	public boolean enviaEmail(String nomeArquivo, String mensagem) {
-		Contatos contatosRepositorio = new Contatos();
-		List<Contato> contatos = contatosRepositorio.recuperaContatosCSV(nomeArquivo);
+	protected abstract Contatos criarContatos();
+
+	public boolean enviaEmail(String mensagem) {
+		List<Contato> contatos = criarContatos().todos();
 
 		System.out.println("Conectando no servidor SMTP...");
 		System.out.println("Mensagem a ser envada: " + mensagem);
